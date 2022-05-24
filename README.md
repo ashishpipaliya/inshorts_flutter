@@ -6,7 +6,6 @@
 </h2>
 <p>Get access to inshorts app's private API in flutter</p>
 
-![GitHub repo size](https://img.shields.io/github/repo-size/ashishpipaliya/inshorts_flutter?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/ashishpipaliya/inshorts_flutter?style=for-the-badge)
 </div>
 

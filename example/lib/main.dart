@@ -27,10 +27,16 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   TabController? _controller;
 
-  List categories = [NewsType.all_news, NewsType.trending, NewsType.top_stories, NewsType.business];
+  List categories = [
+    NewsType.allNews,
+    NewsType.trending,
+    NewsType.topStories,
+    NewsType.business
+  ];
 
   @override
   void initState() {
@@ -45,34 +51,41 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           centerTitle: true,
           title: const Text('InShorts News'),
           bottom: TabBar(
-              controller: _controller, tabs: categories.map((e) => Tab(text: InShorts.getNewsTitle(e))).toList())),
+              controller: _controller,
+              tabs: categories
+                  .map((e) => Tab(text: InShorts.getNewsTitle(e)))
+                  .toList())),
       body: TabBarView(
         controller: _controller,
-        children:
-          categories.map((e) => FutureBuilder<Data>(
-              future: InShorts.getNews(newsType: e, language: Language.en),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data?.newsList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      News news = snapshot.data!.newsList![index];
-                      return ListTile(
-                        leading: Image.network(news.newsObj!.imageUrl!, width: 80, fit: BoxFit.fitWidth),
-                        title: Text(news.newsObj!.title!),
-                        subtitle: Text(
-                          news.newsObj!.sourceName!,
-                          style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13),
-                        ),
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return const Center(child: Text('Errr'));
-                }
-                return const Center(child: CircularProgressIndicator());
-              })).toList()
-        ,
+        children: categories
+            .map((e) => FutureBuilder<Data>(
+                future: InShorts.getNews(newsType: e, language: Language.en),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data?.newsList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        News news = snapshot.data!.newsList![index];
+                        return ListTile(
+                          leading: Image.network(news.newsObj!.imageUrl!,
+                              width: 80, fit: BoxFit.fitWidth),
+                          title: Text(news.newsObj!.title!),
+                          subtitle: Text(
+                            news.newsObj!.sourceName!,
+                            style: const TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13),
+                          ),
+                        );
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Errr'));
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                }))
+            .toList(),
       ),
     );
   }

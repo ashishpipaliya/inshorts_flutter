@@ -24,9 +24,9 @@ class GlobalResponse {
 
 class Data {
   List<News>? newsList;
-String? message;
+  String? message;
 
-  Data({ this.newsList,this.message});
+  Data({this.newsList, this.message});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['news_list'] != null) {
@@ -57,12 +57,12 @@ class News {
 
   News(
       {this.hashId,
-        this.rank,
-        this.version,
-        this.type,
-        this.readOverride,
-        this.fixedRank,
-        this.newsObj});
+      this.rank,
+      this.version,
+      this.type,
+      this.readOverride,
+      this.fixedRank,
+      this.newsObj});
 
   News.fromJson(Map<String, dynamic> json) {
     hashId = json['hash_id'];
@@ -71,9 +71,8 @@ class News {
     type = json['type'];
     readOverride = json['read_override'];
     fixedRank = json['fixed_rank'];
-    newsObj = json['news_obj'] != null
-        ? NewsObj.fromJson(json['news_obj'])
-        : null;
+    newsObj =
+        json['news_obj'] != null ? NewsObj.fromJson(json['news_obj']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -126,36 +125,36 @@ class NewsObj {
 
   NewsObj(
       {this.oldHashId,
-        this.hashId,
-        this.authorName,
-        this.content,
-        this.sourceUrl,
-        this.sourceName,
-        this.title,
-        this.important,
-        this.imageUrl,
-        this.shortenedUrl,
-        this.createdAt,
-        this.score,
-        this.categoryNames,
-        this.relevancyTags,
-        this.tenant,
-        this.fbObjectId,
-        this.fbLikeCount,
-        this.countryCode,
-        this.targetedCity,
-        this.bottomHeadline,
-        this.bottomText,
-        this.darkerFonts,
-        this.bottomPanelLink,
-        this.bottomType,
-        this.version,
-        this.dontShowAd,
-        this.pollTenant,
-        this.videoOpinionEnabled,
-        this.language,
-        this.showInshortsBrandName,
-        this.imageForRepresentation});
+      this.hashId,
+      this.authorName,
+      this.content,
+      this.sourceUrl,
+      this.sourceName,
+      this.title,
+      this.important,
+      this.imageUrl,
+      this.shortenedUrl,
+      this.createdAt,
+      this.score,
+      this.categoryNames,
+      this.relevancyTags,
+      this.tenant,
+      this.fbObjectId,
+      this.fbLikeCount,
+      this.countryCode,
+      this.targetedCity,
+      this.bottomHeadline,
+      this.bottomText,
+      this.darkerFonts,
+      this.bottomPanelLink,
+      this.bottomType,
+      this.version,
+      this.dontShowAd,
+      this.pollTenant,
+      this.videoOpinionEnabled,
+      this.language,
+      this.showInshortsBrandName,
+      this.imageForRepresentation});
 
   NewsObj.fromJson(Map<String, dynamic> json) {
     oldHashId = json['old_hash_id'];

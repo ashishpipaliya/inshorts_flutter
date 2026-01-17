@@ -1,3 +1,9 @@
+## 0.0.4
+
+* Added full Dartdoc coverage for all public API members (Library and Models).
+* Simplified `README.md` with concise, copy-pasteable usage snippets.
+* Optimized `pubspec.yaml` description for better searchability and platform compliance.
+
 ## 0.0.3
 
 * **BREAKING CHANGES**:

@@ -42,9 +42,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          title: const Text('InShorts News'),
-          bottom: TabBar(controller: _controller, tabs: categories.map((e) => Tab(text: InShorts.getNewsTitle(e))).toList())),
+        centerTitle: true,
+        title: const Text('InShorts News'),
+        bottom: TabBar(
+          controller: _controller,
+          tabs: categories.map((e) => Tab(text: InShorts.getNewsTitle(e))).toList(),
+        ),
+      ),
       body: TabBarView(
         controller: _controller,
         children: categories

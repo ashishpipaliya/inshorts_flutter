@@ -1,6 +1,6 @@
 name: inshorts_flutter
-description: Inshorts news app's flutter implementation. Inshorts is an app which provides news from different sources and presents them under 60 words. This package uses Inshorts mobile app's private API to bring news to flutter.
-version: 0.0.3
+description: A Flutter package to fetch news from InShorts using its private API. Supports multiple categories and languages.
+version: 0.0.4
 homepage: https://github.com/ashishpipaliya/inshorts_flutter
 
 environment:

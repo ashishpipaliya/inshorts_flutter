@@ -1,36 +1,99 @@
+/// Detailed news content and metadata.
 class NewsObj {
+  /// Previous hash ID associated with the news.
   String? oldHashId;
+
+  /// Current hash ID unique to this news.
   String? hashId;
+
+  /// Name of the author.
   String? authorName;
+
+  /// The actual news content/summary.
   String? content;
+
+  /// Original source URL of the news.
   String? sourceUrl;
+
+  /// Name of the news source (e.g., Times of India).
   String? sourceName;
+
+  /// Headline or title of the news.
   String? title;
+
+  /// Marks if the news is highlighted as important.
   bool? important;
+
+  /// Primary image URL for the news card.
   String? imageUrl;
+
+  /// Shortened version of the source URL.
   String? shortenedUrl;
+
+  /// Creation timestamp.
   int? createdAt;
+
+  /// Internal score for sorting or relevancy.
   int? score;
+
+  /// Categories this news belongs to.
   List<String>? categoryNames;
+
+  /// Tags for relevancy and targeting.
   List<String>? relevancyTags;
+
+  /// Platform tenant information.
   String? tenant;
+
+  /// FB Object identifier.
   String? fbObjectId;
+
+  /// Number of likes on Facebook.
   int? fbLikeCount;
+
+  /// Country code for targeting.
   String? countryCode;
+
+  /// Targeted cities for the news.
   List<String>? targetedCity;
+
+  /// Headline shown at the bottom of the news card.
   String? bottomHeadline;
+
+  /// Text shown at the bottom of the news card.
   String? bottomText;
+
+  /// Indicates if darker fonts should be used.
   bool? darkerFonts;
+
+  /// Link for the bottom panel.
   String? bottomPanelLink;
+
+  /// Type of bottom panel.
   String? bottomType;
+
+  /// Version of the news content.
   int? version;
+
+  /// Flag to hide ads for this news item.
   bool? dontShowAd;
+
+  /// Poll tenant information.
   String? pollTenant;
+
+  /// Indicates if video opinion is enabled.
   bool? videoOpinionEnabled;
+
+  /// Language of the news content.
   String? language;
+
+  /// Flag to show InShorts branding.
   bool? showInshortsBrandName;
+
+  /// Flag indicating if the image is for representation.
   bool? imageForRepresentation;
 
+  /// Creates a [NewsObj] with all available parameters.
   NewsObj(
       {this.oldHashId,
       this.hashId,
@@ -64,6 +127,7 @@ class NewsObj {
       this.showInshortsBrandName,
       this.imageForRepresentation});
 
+  /// Factory for creating [NewsObj] from a JSON map.
   NewsObj.fromJson(Map<String, dynamic> json) {
     oldHashId = json['old_hash_id'];
     hashId = json['hash_id'];
@@ -98,6 +162,7 @@ class NewsObj {
     imageForRepresentation = json['image_for_representation'];
   }
 
+  /// Converts [NewsObj] to a JSON map.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['old_hash_id'] = oldHashId;

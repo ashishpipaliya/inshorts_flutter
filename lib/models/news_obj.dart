@@ -1,95 +1,3 @@
-class GlobalResponse {
-  Data? data;
-  bool? error;
-  String? message;
-
-  GlobalResponse({this.data, this.error});
-
-  GlobalResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    error = json['error'];
-    message = json['message'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    data['error'] = error;
-    data['message'] = message;
-    return data;
-  }
-}
-
-class Data {
-  List<News>? newsList;
-  String? message;
-
-  Data({this.newsList, this.message});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    if (json['news_list'] != null) {
-      newsList = <News>[];
-      json['news_list'].forEach((v) {
-        newsList!.add(News.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (newsList != null) {
-      data['news_list'] = newsList!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class News {
-  String? hashId;
-  int? rank;
-  int? version;
-  String? type;
-  bool? readOverride;
-  bool? fixedRank;
-  NewsObj? newsObj;
-
-  News(
-      {this.hashId,
-      this.rank,
-      this.version,
-      this.type,
-      this.readOverride,
-      this.fixedRank,
-      this.newsObj});
-
-  News.fromJson(Map<String, dynamic> json) {
-    hashId = json['hash_id'];
-    rank = json['rank'];
-    version = json['version'];
-    type = json['type'];
-    readOverride = json['read_override'];
-    fixedRank = json['fixed_rank'];
-    newsObj =
-        json['news_obj'] != null ? NewsObj.fromJson(json['news_obj']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['hash_id'] = hashId;
-    data['rank'] = rank;
-    data['version'] = version;
-    data['type'] = type;
-    data['read_override'] = readOverride;
-    data['fixed_rank'] = fixedRank;
-    if (newsObj != null) {
-      data['news_obj'] = newsObj!.toJson();
-    }
-    return data;
-  }
-}
-
 class NewsObj {
   String? oldHashId;
   String? hashId;
@@ -169,13 +77,13 @@ class NewsObj {
     shortenedUrl = json['shortened_url'];
     createdAt = json['created_at'];
     score = json['score'];
-    categoryNames = json['category_names'].cast<String>();
-    relevancyTags = json['relevancy_tags'].cast<String>();
+    categoryNames = json['category_names']?.cast<String>();
+    relevancyTags = json['relevancy_tags']?.cast<String>();
     tenant = json['tenant'];
     fbObjectId = json['fb_object_id'];
     fbLikeCount = json['fb_like_count'];
     countryCode = json['country_code'];
-    targetedCity = json['targeted_city'].cast<String>();
+    targetedCity = json['targeted_city']?.cast<String>();
     bottomHeadline = json['bottom_headline'];
     bottomText = json['bottom_text'];
     darkerFonts = json['darker_fonts'];

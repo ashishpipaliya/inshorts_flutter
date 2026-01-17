@@ -39,8 +39,7 @@ Add the dependency in `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ...
-  inshorts_flutter: latest_version
+  inshorts_flutter: ^0.0.3
 ```
 ____
 Get news
@@ -53,7 +52,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -77,7 +76,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   TabController? _controller;
 
-  List categories = [NewsType.all_news, NewsType.trending, NewsType.top_stories, NewsType.business];
+  List categories = [NewsType.allNews, NewsType.trending, NewsType.topStories, NewsType.business];
 
   @override
   void initState() {
@@ -91,35 +90,74 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       appBar: AppBar(
           centerTitle: true,
           title: const Text('InShorts News'),
-          bottom: TabBar(
-              controller: _controller, tabs: categories.map((e) => Tab(text: InShorts.getNewsTitle(e))).toList())),
+          bottom: TabBar(controller: _controller, tabs: categories.map((e) => Tab(text: InShorts.getNewsTitle(e))).toList())),
       body: TabBarView(
         controller: _controller,
-        children:
-          categories.map((e) => FutureBuilder<Data>(
-              future: InShorts.getNews(newsType: e, language: Language.en),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data?.newsList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      News news = snapshot.data!.newsList![index];
-                      return ListTile(
-                        leading: Image.network(news.newsObj!.imageUrl!, width: 80, fit: BoxFit.fitWidth),
-                        title: Text(news.newsObj!.title!),
-                        subtitle: Text(
-                          news.newsObj!.sourceName!,
-                          style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13),
-                        ),
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return const Center(child: Text('Errr'));
-                }
-                return const Center(child: CircularProgressIndicator());
-              })).toList()
-        ,
+        children: categories
+            .map((e) => FutureBuilder<Data>(
+                future: InShorts.getNews(newsType: e, language: Language.en),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data?.newsList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        News? news = snapshot.data?.newsList?[index];
+                        if (news == null || news.newsObj == null) {
+                          return const SizedBox.shrink();
+                        }
+                        final obj = news.newsObj!;
+                        return Card(
+                          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (obj.imageUrl != null)
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          obj.imageUrl!,
+                                          height: 80,
+                                          width: 80,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        obj.title ?? 'No Title',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  obj.content ?? '',
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 13, color: Colors.grey[800], height: 1.3),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Error fetching news'));
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                }))
+            .toList(),
       ),
     );
   }

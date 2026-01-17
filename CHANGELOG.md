@@ -1,5 +1,8 @@
 ## 0.0.3
 
+* **BREAKING CHANGES**:
+  * Refactored model imports: `lib/api/global_response.dart` removed. Models are now grouped under `lib/models/` and exported via the main entry point. Import `package:inshorts_flutter/inshorts_flutter.dart` instead.
+  * Standardized `NewsType` enums to `camelCase` (e.g., `all_news` -> `allNews`, `top_stories` -> `topStories`) to align with Dart naming conventions.
 * Refactored model classes into separate files for better maintainability.
 * Added comprehensive unit tests and structural schema validation.
 * Enhanced `InShorts.getNews` with robust null-safety and error handling.
